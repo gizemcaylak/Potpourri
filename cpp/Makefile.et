@@ -1,0 +1,49 @@
+#MATLABDIR=/usr/local/MATLAB/R2017a/bin/
+CXXFLAGS=-Wall -O3 -g -Wno-deprecated -Wno-sign-compare -fopenmp -fPIC -std=c++11
+LDFLAGS=-lboost_program_options -lgomp
+VER=1.00
+SOURCEDIR=src/cpp/ET/
+OBJECTDIR=src/obj/ET/
+BINARYDIR=binaries/
+BIN=spadis ${MEXOBJ}
+
+.mkdir: 
+	mkdir -p ${OBJECTDIR} && touch .mkdir
+
+.PHONY: matlab
+
+matlab: .mkdir .mlab
+
+tgz: clean
+	mkdir -p spadis-${VER}/${SOURCEDIR} &&\
+	cp -r Makefile ../ spadis-${VER} &&\
+	cp -r ${SOURCEDIR}*.?pp ${SOURCEDIR}*.h spadis-${VER}/${SOURCEDIR} &&\
+	tar -czf spadis-${VER}.tgz spadis-${VER}&&\
+	rm -rf spadis-${VER}
+	
+clean:
+	rm -f $(BIN) ${OBJECTDIR}*.o .mlab .mkdir *.tgz
+
+${OBJECTDIR}FilePath.o: ${SOURCEDIR}FilePath.cpp ${SOURCEDIR}FilePath.h
+	g++ ${CXXFLAGS} -c ${SOURCEDIR}FilePath.cpp -o ${OBJECTDIR}FilePath.o
+${OBJECTDIR}Snp.o: ${SOURCEDIR}Snp.cpp ${SOURCEDIR}Snp.h
+	g++ ${CXXFLAGS} -c ${SOURCEDIR}Snp.cpp -o ${OBJECTDIR}Snp.o
+${OBJECTDIR}LDForest.o: ${SOURCEDIR}LDForest.cpp ${SOURCEDIR}LDForest.h ${SOURCEDIR}LDGroup.h ${SOURCEDIR}Snp.h ${SOURCEDIR}TopSnpList.cpp
+	g++ ${CXXFLAGS} -c ${SOURCEDIR}LDForest.cpp -o ${OBJECTDIR}LDForest.o
+${OBJECTDIR}LDGroup.o: ${SOURCEDIR}LDGroup.cpp ${SOURCEDIR}LDGroup.h ${SOURCEDIR}Snp.h ${SOURCEDIR}TopSnpList.cpp
+	g++ ${CXXFLAGS} -c ${SOURCEDIR}LDGroup.cpp -o ${OBJECTDIR}LDGroup.o
+${OBJECTDIR}TopSnpList.o: ${SOURCEDIR}TopSnpList.cpp ${SOURCEDIR}TopSnpList.h
+	g++ ${CXXFLAGS} -c ${SOURCEDIR}TopSnpList.cpp -o ${OBJECTDIR}TopSnpList.o
+
+.mlab: ${SOURCEDIR}matlab_et.cpp ${OBJECTDIR}FilePath.o ${OBJECTDIR}Snp.o ${OBJECTDIR}LDForest.o ${OBJECTDIR}LDGroup.o ${OBJECTDIR}TopSnpList.o  
+#${MATLABDIR}/bin/mex
+	${MATLABDIR}mex ${SOURCEDIR}matlab_et.cpp -output ../epistasis_test_mex -v -g -O -largeArrayDims -lut "CXXFLAGS=\$$CXXFLAGS ${CXXFLAGS}" "LDFLAGS=\$$LDFLAGS ${LDFLAGS} ${OBJECTDIR}FilePath.o ${OBJECTDIR}Snp.o ${OBJECTDIR}LDForest.o ${OBJECTDIR}LDGroup.o ${OBJECTDIR}TopSnpList.o -lgomp" \
+	&& touch .mlab
+
+
+
+
+
+
+
+

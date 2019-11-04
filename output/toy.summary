@@ -1,0 +1,2 @@
+output_file	snps_input	case_samples	control_samples	max_marginal_significance	snps_ignored_marginal_significance	no_of_tests	pairs_reported
+toy	16225	45	154	6	671	4839423	145
