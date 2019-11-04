@@ -8,7 +8,7 @@ Potpourri provides a MATLAB interface for ease of use. These instructions will g
 Building Potpourri requires the Boost C++ library.
 
 ## Installation:
-In order to build Potpourri for MATLAB, you can use GNU make:
+In order to build Potpourri for MATLAB, just type make on the terminal!:
 ```
 make
 ```
@@ -18,26 +18,28 @@ build_mex.m
 ```
 
 ## Input Format:
-### Feature Matrix: 
+@ Feature Matrix: 
 This should consist of a grid {0, 1, 2} characters, representing homozygous major, heterozygous and homozygous
 minor genotypes respectively for all samples. Each row corresponds to a sample.
-### Labels:
+@ Labels:
 This should consist of {0, 1} binary labels representing control and case respectively.
-## SNP Information:
+@ SNP Information:
 This should consist of three columns: unique SNP_id, chromosome and position
-## Regulatory/Coding Information:
+@ Regulatory/Coding Information:
 This should consist of {0, 1} binary labels representing whether the corresponding SNP (with columns of feature matrix) is in the regulatory region (1) or not (0).
-## Network Matrix:
+@ Network Matrix:
 An adjacency matrix for SNP-SNP interaction. 
-## Maximum marginal significance
+
+## Parameters:
+@ Maximum marginal significance
 Takes an integer value from 1-6, representing the maximum marginal significance of loci for consideration in pairwise testing as a -log10(p-value).
-## outputFileName 
+@ outputFileName 
 Prefix for output files.
-## Omega 
+@ Omega 
 A float parameter of Potpourri to reward regulatory region.
-## b
+@ b
 Number of neighbors that should be included in the epistasis test for each selected SNP.
-## k
+@ k
 Number of features to be selected 
 
 ## Examples:
