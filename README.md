@@ -18,6 +18,7 @@ build_mex.m
 ```
 
 ## Input Format:
+```
 @ Feature Matrix: 
 This should consist of a grid {0, 1, 2} characters, representing homozygous major, heterozygous and homozygous
 minor genotypes respectively for all samples. Each row corresponds to a sample.
@@ -29,19 +30,20 @@ This should consist of three columns: unique SNP_id, chromosome and position
 This should consist of {0, 1} binary labels representing whether the corresponding SNP (with columns of feature matrix) is in the regulatory region (1) or not (0).
 @ Network Matrix:
 An adjacency matrix for SNP-SNP interaction. 
-
+```
 ## Parameters:
-@ Maximum marginal significance
+```
+@ Maximum marginal significance:
 Takes an integer value from 1-6, representing the maximum marginal significance of loci for consideration in pairwise testing as a -log10(p-value).
-@ outputFileName 
+@ outputFileName:
 Prefix for output files.
-@ Omega 
+@ Omega: 
 A float parameter of Potpourri to reward regulatory region.
-@ b
+@ b:
 Number of neighbors that should be included in the epistasis test for each selected SNP.
-@ k
+@ k:
 Number of features to be selected 
-
+```
 ## Examples:
 How to run SPADIS on MATLAB. 
 Simply run the demo file:
