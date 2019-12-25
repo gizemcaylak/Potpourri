@@ -45,7 +45,7 @@ Number of neighbors that should be included in the epistasis test for each selec
 Number of features to be selected 
 ```
 ## Examples:
-How to run SPADIS on MATLAB. 
+How to run Potpourri on MATLAB. 
 Simply run the demo file:
 ```
 demo_potpourri.m
@@ -68,6 +68,9 @@ Each row represents a single reciprocal locus pairing with chi-squared significa
 
 ## License
 This project is licensed under GNU GPL v3 - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgement
+We used LINDEN and SPADIS code in our implementation from the studies by Cowman et. al. and Yilmaz et. al respectively. 
 
 ## References
 Yilmaz, Serhan, Tastan, Oznur & Cicek, A. Ercument (2018). [SPADIS: An Algorithm for Selecting Predictive and Diverse SNPs in GWAS](https://www.biorxiv.org/content/early/2018/01/30/256677). bioRxiv
